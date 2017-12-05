@@ -1,10 +1,18 @@
-module.exports = {
-    entry: "./src/index.tsx",
-    output: {
-        filename: "bundle.js",
-        path: __dirname + "/dist"
-    },
 
+export default {
+    entry: [
+        "webpack-hot-middleware/client?reload=true", //note that it reloads the page if hot module reloading fails.
+        "./src/index.tsx"
+    ],
+    target: 'web',
+    output: {
+        path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
+        publicPath: '/',
+        filename: 'bundle.js'
+    },
+    devServer: {
+        contentBase: './src'
+    },
     // Enable sourcemaps for debugging webpack's output.
     devtool: "source-map",
 
