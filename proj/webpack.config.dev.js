@@ -25,15 +25,8 @@ export default {
     ],
     module: {
         loaders: [
-            {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
+            //{test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
             {test: /\.tsx$/, include: path.join(__dirname, 'src'), loaders: ['ts-loader']}
-        ],
-        rules: [
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
-            }
         ]
     },
     resolve: {
