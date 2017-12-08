@@ -1,43 +1,56 @@
-import { combineReducers } from 'redux'
+import * as Immutable from 'seamless-immutable';
 
-import { Action } from '../actions'
+import { ActionType, AppStateType } from '../constants/types';
 
-export type Counter = { value: number }
+import {
+    FETCH_INFO_ERROR,
+    FETCH_INFO_INFLIGHT,
+    FETCH_INFO_SUCCESSFUL,
+    INCREMENT_COUNTER,
+    SWITCH_LANGUAGE,
+    TOGGLE_RIGHT_SIDEBAR,
+} from './constants';
 
-export type All = {
-    counter: Counter,
-    isSaving: boolean,
-    isLoading: boolean,
-    error: string,
-}
-
-const counterState: Counter = {
-    value: 0,
-}
-
-function counter (state: Counter = counterState, action: Action): Counter {
-    switch (action.type) {
-        case 'INCREMENT_COUNTER':
-            const { delta } = action
-            return { value: state.value + delta };
-
-        case 'RESET_COUNTER':
-            return { value: 0 };
-
-        default:
-            return state
-    }
-}
-
-export const initialState = {
-    counter: counterState,
-    isSaving: false,
-    isLoading: false,
-    error: '',
+const istate: AppStateType = {
+    counter: 0,
+    error: undefined,
+    loading: false,
+    rightSidebarVisible: false
 };
 
-const reducers = combineReducers<All>({
-    counter
-});
+export const initialState = Immutable.from(istate);
 
-export default reducers
+const appReducer = (state = initialState, action: ActionType<{}>): AppStateType => {
+    switch (action.type) {
+
+        case SWITCH_LANGUAGE:
+            return state
+                .set('locale', action.payload);
+
+        case FETCH_INFO_INFLIGHT:
+            return state
+                .set('loading', true);
+
+        case FETCH_INFO_SUCCESSFUL:
+            return state
+                .set('loading', false);
+
+        case FETCH_INFO_ERROR:
+            return state
+                .set('loading', false)
+                .set('error', FETCH_INFO_ERROR);
+
+        case TOGGLE_RIGHT_SIDEBAR:
+            return state
+                .set('rightSidebarVisible', !state.rightSidebarVisible);
+
+        case INCREMENT_COUNTER:
+            return state
+                .set('counter', state.counter + 1);
+
+        default:
+            return state;
+    }
+};
+
+export default appReducer;
