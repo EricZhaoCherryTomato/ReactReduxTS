@@ -6,8 +6,8 @@ import {
     fetchPostsIfNeeded,
     invalidateSubreddit
 } from '../store/actions';
-import Picker from '../components/Picker'
-import Posts from '../components/Posts'
+import Picker from '../components/Picker';
+import Posts from '../components/Posts';
 
 class AsyncApp extends Component {
     constructor(props) {
@@ -78,7 +78,7 @@ AsyncApp.propTypes = {
     isFetching: PropTypes.bool.isRequired,
     lastUpdated: PropTypes.number,
     dispatch: PropTypes.func.isRequired
-}
+};
 
 function mapStateToProps(state) {
     const { selectedSubreddit, postsBySubreddit } = state;
