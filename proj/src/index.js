@@ -1,17 +1,10 @@
+import 'babel-polyfill';
+
 import React from 'react';
 import ReactDom from 'react-dom';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import App from './App';
-
-
-import * as reducers from './store/reducers';
-const store = createStore(combineReducers(reducers), applyMiddleware(thunk));
+import Root from './containers/Root';
 
 ReactDom.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
+    <Root />,
     document.getElementById('root')
 );

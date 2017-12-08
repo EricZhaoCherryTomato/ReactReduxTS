@@ -25,12 +25,20 @@ export default {
     ],
     module: {
         loaders: [
-            {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']}
+            {
+                test: /\.js$/,
+                include: path.join(__dirname, 'src'),
+                loaders: ['babel']
+            }
             //{test: /\.tsx$/, include: path.join(__dirname, 'src'), loaders: ['ts-loader']}
         ]
     },
     resolve: {
         extensions: [ '', '.tsx', '.ts', '.js','json' ],
         modules: ['app', 'src', 'node_modules']
+    },
+    query: {
+        plugins: ['transform-runtime'],
+        presets: ['es2015', 'stage-0', 'react']
     }
 };
