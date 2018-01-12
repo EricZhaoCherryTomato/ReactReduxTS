@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/index.tsx',
+    entry: './src/index',
     resolve: {
       extensions: ['.ts', '.tsx', '.js']  
     },
@@ -12,7 +12,11 @@ module.exports = {
         ]  
     },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist/js')
+      path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
+      publicPath: '/',
+      filename: 'bundle.js'
+  },
+  devServer: {
+    contentBase: './src'
   }
 };
