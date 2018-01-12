@@ -1,44 +1,18 @@
-import webpack from 'webpack';
-import path from 'path';
+const path = require('path');
 
-export default {
-    debug: true,
-    devtool: 'cheap-module-eval-source-map',
-    noInfo: false,
-    entry: [
-        'eventsource-polyfill', // necessary for hot reloading with IE
-        'webpack-hot-middleware/client?reload=true', //note that it reloads the page if hot module reloading fails.
-        './src/index.js'
-    ],
-    target: 'web',
-    output: {
-        path: __dirname + '/dist', // Note: Physical files are only output by the production build task `npm run build`.
-        publicPath: '/',
-        filename: 'bundle.js'
-    },
-    devServer: {
-        contentBase: './src'
-    },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin()
-    ],
-    module: {
-        loaders: [
-            {
-                test: /\.js$/,
-                include: path.join(__dirname, 'src'),
-                loaders: ['babel']
-            }
-            //{test: /\.tsx$/, include: path.join(__dirname, 'src'), loaders: ['ts-loader']}
-        ]
-    },
+module.exports = {
+    entry: './src/index.tsx',
     resolve: {
-        extensions: [ '', '.tsx', '.ts', '.js','json' ],
-        modules: ['app', 'src', 'node_modules']
+      extensions: ['.ts', '.tsx', '.js']  
     },
-    query: {
-        plugins: ['transform-runtime'],
-        presets: ['es2015', 'stage-0', 'react']
-    }
+    module: {
+        rules: [
+            { test: /\.tsx?$/, loader: 'ts-loader' },
+            { test: /\.css$/, use: [ 'style-loader', 'css-loader' ]}
+        ]  
+    },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist/js')
+  }
 };
